@@ -80,7 +80,13 @@ function simpleFlowAsyncRS() {
     console.log(`on data received ${chunk.toString()}`);
   });
 
+  asyncRS.on('readable', () => {
+    console.log('sync rs readable event received.');
+  });
+
   asyncRS.push('prepush');
+  asyncRS.push('prepush1');
+  asyncRS.push('prepush2');
 
   // although resume is trigger on nextTick, but before read() return, data event was emit first
   console.log(asyncRS.read().toString());
@@ -93,7 +99,13 @@ function simpleFlowSyncRS() {
     console.log(`on data received ${chunk.toString()}`);
   });
 
+  syncRS.on('readable', () => {
+    console.log('sync rs readable event received.');
+  });
+
   syncRS.push('prepush');
+  syncRS.push('prepush1');
+  syncRS.push('prepush2');
 
   // although resume is trigger on nextTick, but before read() return, data event was emit first
   console.log(syncRS.read().toString());

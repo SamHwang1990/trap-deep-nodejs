@@ -19,6 +19,7 @@
 * */
 function cpuUsage() {
   console.log('process.cpuUsage() test case');
+  console.log(`process id: ${process.pid}`);
   let cpuUsage1 = process.cpuUsage();
   let now = Date.now();
   while (Date.now() - now < 500);
@@ -103,4 +104,26 @@ function hrtime() {
     console.log(`interval timer hrtime: ${intervalTimerHrtime[0]} seconds and ${intervalTimerHrtime[1]} nanoseconds`);
     console.log(`date time elapse in async timer: ${intervalTimerHrtime[0] * 1e9 + intervalTimerHrtime[1]} nanoseconds`);
   }, 2000);
+}
+
+/*
+* process.memoryUsage()
+*
+* 返回进程的内存使用情况，包括：常驻集的大小 - rss、堆的总值 - heapTotal、实际使用的堆 - heapUsed
+*
+* 这些数值实际上是v8 引擎返回的。
+*
+* 关于进程内存使用，涉及到v8 的内存分配机制、垃圾回收机制、内存泄漏等知识点，暂时还没能力潜得太深，就先贴几个链接：
+* - [深入理解Node.js中的垃圾回收和内存泄漏的捕获](http://wwsun.github.io/posts/understanding-nodejs-gc.html)
+* - [node-memwatch](https://github.com/lloyd/node-memwatch)
+* - [V8 之旅： 垃圾回收器](http://newhtml.net/v8-garbage-collection/)
+*
+* 过段时间，深入了解下各种容易造成内存泄漏的写法
+*
+* */
+function memoryUsage() {
+  console.log('process.memoryUsage() test case');
+
+  let usage = process.memoryUsage();
+  console.log(`rss: ${usage.rss}, heapTotal: ${usage.heapTotal}, heapUsed: ${usage.heapUsed}, external: ${usage.external}`);
 }

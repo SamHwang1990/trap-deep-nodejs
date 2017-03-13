@@ -118,7 +118,7 @@ function hrtime() {
 * - [node-memwatch](https://github.com/lloyd/node-memwatch)
 * - [V8 之旅： 垃圾回收器](http://newhtml.net/v8-garbage-collection/)
 *
-* 过段时间，深入了解下各种容易造成内存泄漏的写法
+* todo: 过段时间，深入了解下各种容易造成内存泄漏的写法
 *
 * */
 function memoryUsage() {
@@ -127,3 +127,27 @@ function memoryUsage() {
   let usage = process.memoryUsage();
   console.log(`rss: ${usage.rss}, heapTotal: ${usage.heapTotal}, heapUsed: ${usage.heapUsed}, external: ${usage.external}`);
 }
+
+/*
+* process.uptime()
+*
+* 简单的返回进程运行的时长，单位是s
+* */
+function uptime() {
+  console.log(`process had been running ${process.uptime()}`);
+  let now = Date.now();
+  while (Date.now() - now < 5000) {}
+
+  console.log(`process had been running ${process.uptime()}`);
+
+  setTimeout(() => {
+    console.log(`process had been running ${process.uptime()}`);
+  }, 2000);
+}
+
+module.exports = {
+  cpuUsage,
+  hrtime,
+  memoryUsage,
+  uptime
+};
